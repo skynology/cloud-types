@@ -1,10 +1,6 @@
 package mp
 
-import (
-	"encoding/xml"
-
-	"github.com/skynology/wechat/mp"
-)
+import "encoding/xml"
 
 const (
 	// 微信服务器推送过来的消息类型
@@ -46,7 +42,7 @@ func GetText(data string) (*ReqText, error) {
 // 图片消息
 type ReqImage struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	MsgId   int64  `xml:"MsgId"   json:"MsgId"`   // 消息id, 64位整型
 	MediaId string `xml:"MediaId" json:"MediaId"` // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
@@ -62,7 +58,7 @@ func GetImage(data string) (*ReqImage, error) {
 // 语音消息
 type ReqVoice struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	MsgId   int64  `xml:"MsgId"   json:"MsgId"`   // 消息id, 64位整型
 	MediaId string `xml:"MediaId" json:"MediaId"` // 语音消息媒体id，可以调用多媒体文件下载接口拉取该媒体
@@ -82,7 +78,7 @@ func GetVoice(data string) (*ReqVoice, error) {
 // 视频消息
 type ReqVideo struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	MsgId        int64  `xml:"MsgId"        json:"MsgId"`        // 消息id, 64位整型
 	MediaId      string `xml:"MediaId"      json:"MediaId"`      // 视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
@@ -98,7 +94,7 @@ func GetVideo(data string) (*ReqVideo, error) {
 // 地理位置消息
 type ReqLocation struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	MsgId     int64   `xml:"MsgId"      json:"MsgId"`      // 消息id, 64位整型
 	LocationX float64 `xml:"Location_X" json:"Location_X"` // 地理位置纬度
@@ -116,7 +112,7 @@ func GetLocation(data string) (*ReqLocation, error) {
 // 链接消息
 type ReqLink struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	MsgId       int64  `xml:"MsgId"       json:"MsgId"`       // 消息id, 64位整型
 	Title       string `xml:"Title"       json:"Title"`       // 消息标题

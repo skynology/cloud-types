@@ -1,10 +1,6 @@
 package corp
 
-import (
-	"encoding/xml"
-
-	"github.com/skynology/wechat/corp"
-)
+import "encoding/xml"
 
 const (
 	MsgTypeText     = "text"
@@ -94,7 +90,7 @@ func GetVideo(data string) (*ReqVideo, error) {
 
 type ReqLocation struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	corp.CommonMessageHeader
+	CommonMessageHeader
 
 	MsgId     int64   `xml:"MsgId"      json:"MsgId"`      // 消息id，64位整型
 	LocationX float64 `xml:"Location_X" json:"Location_X"` // 地理位置纬度
