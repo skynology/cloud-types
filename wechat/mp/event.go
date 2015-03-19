@@ -3,8 +3,6 @@ package mp
 import (
 	"fmt"
 	"strings"
-
-	"github.com/skynology/wechat/mp"
 )
 
 const (
@@ -29,7 +27,7 @@ const (
 // 关注事件(普通关注)
 type ReqSubscribeEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event string `xml:"Event" json:"Event"` // 事件类型，subscribe(订阅)
 }
@@ -43,7 +41,7 @@ func GetSubscribeEvent(data string) (*ReqSubscribeEvent, error) {
 // 取消关注
 type ReqUnsubscribeEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event string `xml:"Event" json:"Event"` // 事件类型，unsubscribe(取消订阅)
 }
@@ -57,7 +55,7 @@ func GetUnsubscribeEvent(data string) (*ReqUnsubscribeEvent, error) {
 // 用户未关注时，扫描带参数二维码进行关注后的事件推送
 type ReqSubscribeByScanEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event    string `xml:"Event"    json:"Event"`    // 事件类型，subscribe
 	EventKey string `xml:"EventKey" json:"EventKey"` // 事件KEY值，qrscene_为前缀，后面为二维码的参数值
@@ -84,7 +82,7 @@ func GetSubscribeByScanEvent(data string) (*ReqSubscribeByScanEvent, error) {
 // 用户已关注时，扫描带参数二维码的事件推送
 type ReqScanEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event    string `xml:"Event"    json:"Event"`    // 事件类型，SCAN
 	EventKey string `xml:"EventKey" json:"EventKey"` // 事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
@@ -100,7 +98,7 @@ func GetScanEvent(data string) (*ReqScanEvent, error) {
 // 上报地理位置事件
 type ReqLocationEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	mp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event     string  `xml:"Event"     json:"Event"`     // 事件类型，LOCATION
 	Latitude  float64 `xml:"Latitude"  json:"Latitude"`  // 地理位置纬度

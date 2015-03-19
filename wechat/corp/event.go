@@ -1,7 +1,5 @@
 package corp
 
-import "github.com/skynology/wechat/corp"
-
 const (
 	EventTypeClick = "CLICK" // 点击菜单拉取消息时的事件推送
 	EventTypeView  = "VIEW"  // 点击菜单跳转链接时的事件推送
@@ -120,7 +118,7 @@ func GetScanCodePushEvent(data string) (*ReqScanCodePushEvent, error) {
 // scancode_waitmsg: 扫码推事件且弹出“消息接收中”提示框的事件推送
 type ReqScanCodeWaitMsgEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	corp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event    string `xml:"Event"    json:"Event"`    // 事件类型，scancode_waitmsg
 	EventKey string `xml:"EventKey" json:"EventKey"` // 事件KEY值，由开发者在创建菜单时设定
@@ -206,7 +204,7 @@ func GetPicWeixinEvent(data string) (*ReqPicWeixinEvent, error) {
 // location_select: 弹出地理位置选择器的事件推送
 type ReqLocationSelectEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	corp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event    string `xml:"Event"    json:"Event"`    // 事件类型，location_select
 	EventKey string `xml:"EventKey" json:"EventKey"` // 事件KEY值，由开发者在创建菜单时设定
@@ -230,7 +228,7 @@ func GetLocationSelectEvent(data string) (*ReqLocationSelectEvent, error) {
 //  本事件只有在应用的回调模式中打开上报开关时上报
 type ReqEnterAgentEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
-	corp.CommonMessageHeader
+	CommonMessageHeader
 
 	Event    string `xml:"Event"    json:"Event"`    // 事件类型，enter_agent
 	EventKey string `xml:"EventKey" json:"EventKey"` // 事件KEY值，此事件该值为空
