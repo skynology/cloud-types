@@ -114,7 +114,7 @@ type ResNews struct {
 	CommonResponseMessageHeader `mapstructure:",squash"`
 
 	ArticleCount int          `mapstructure:"ArticleCount"        xml:"ArticleCount"    json:"ArticleCount"` // 图文条数，默认第一条为大图。图文数不能超过10，否则将会无响应
-	Articles     []ResArticle `mapstructure:"Articles>item,omitempty"  xml:"Articles" json:"Articles,omitempty"`
+	Articles     []ResArticle `mapstructure:"Articles,omitempty"  xml:"Articles>item,omitempty" json:"Articles,omitempty"`
 }
 
 func NewResNews(to, from string, timestamp int64, articles []ResArticle) (news *ResNews) {

@@ -38,8 +38,8 @@ type ResImage struct {
 	CommonMessageHeader `mapstructure:",squash"`
 
 	Image struct {
-		MediaId string `mapstructure:"MediaId" json:"MediaId"` // MediaId 通过上传多媒体文件得到
-	} `mapstructure:"Image" json:"Image"`
+		MediaId string `mapstructure:"MediaId" xml:"MediaId"  json:"MediaId"` // MediaId 通过上传多媒体文件得到
+	} `mapstructure:"Image" xml:"Image" json:"Image"`
 }
 
 // 新建图片消息
@@ -63,8 +63,8 @@ type ResVoice struct {
 	CommonMessageHeader `mapstructure:",squash"`
 
 	Voice struct {
-		MediaId string `mapstructure:"MediaId" json:"MediaId"` // MediaId 通过上传多媒体文件得到
-	} `mapstructure:"Voice" json:"Voice"`
+		MediaId string `mapstructure:"MediaId" xml:"MediaId" json:"MediaId"` // MediaId 通过上传多媒体文件得到
+	} `mapstructure:"Voice" xml:"Voice" json:"Voice"`
 }
 
 // 新建语音消息
@@ -88,10 +88,10 @@ type ResVideo struct {
 	CommonMessageHeader `mapstructure:",squash"`
 
 	Video struct {
-		MediaId     string `mapstructure:"MediaId"               json:"MediaId"`               // MediaId 通过上传多媒体文件得到
-		Title       string `mapstructure:"Title,omitempty"       json:"Title,omitempty"`       // 视频消息的标题
-		Description string `mapstructure:"Description,omitempty" json:"Description,omitempty"` // 视频消息的描述
-	} `mapstructure:"Video" json:"Video"`
+		MediaId     string `mapstructure:"MediaId"          xml:"MediaId"       json:"MediaId"`                             // MediaId 通过上传多媒体文件得到
+		Title       string `mapstructure:"Title,omitempty"    xml:"Title,omitempty"     json:"Title,omitempty"`             // 视频消息的标题
+		Description string `mapstructure:"Description,omitempty" xml:"Description,omitempty"  json:"Description,omitempty"` // 视频消息的描述
+	} `mapstructure:"Video" xml:"Video" json:"Video"`
 }
 
 // 新建视频消息
@@ -118,12 +118,12 @@ type ResMusic struct {
 	CommonMessageHeader `mapstructure:",squash"`
 
 	Music struct {
-		Title        string `mapstructure:"Title,omitempty"        json:"Title,omitempty"`        // 音乐标题
-		Description  string `mapstructure:"Description,omitempty"  json:"Description,omitempty"`  // 音乐描述
-		MusicURL     string `mapstructure:"MusicUrl,omitempty"     json:"MusicUrl,omitempty"`     // 音乐链接
-		HQMusicURL   string `mapstructure:"HQMusicUrl,omitempty"   json:"HQMusicUrl,omitempty"`   // 高质量音乐链接, WIFI环境优先使用该链接播放音乐
-		ThumbMediaId string `mapstructure:"ThumbMediaId,omitempty" json:"ThumbMediaId,omitempty"` // 缩略图的媒体id, 通过上传多媒体文件得到
-	} `mapstructure:"Music" json:"Music"`
+		Title        string `mapstructure:"Title,omitempty"    xml:"Title,omitempty"    json:"Title,omitempty"`              // 音乐标题
+		Description  string `mapstructure:"Description,omitempty"  xml:"Description,omitempty" json:"Description,omitempty"` // 音乐描述
+		MusicURL     string `mapstructure:"MusicUrl,omitempty"   xml:"MusicUrl"  json:"MusicUrl,omitempty"`                  // 音乐链接
+		HQMusicURL   string `mapstructure:"HQMusicUrl,omitempty"  xml:"HQMusicUrl"  json:"HQMusicUrl,omitempty"`             // 高质量音乐链接, WIFI环境优先使用该链接播放音乐
+		ThumbMediaId string `mapstructure:"ThumbMediaId,omitempty" xml:"ThumbMediaId"    json:"ThumbMediaId,omitempty"`      // 缩略图的媒体id, 通过上传多媒体文件得到
+	} `mapstructure:"Music" xml:"Music" json:"Music"`
 }
 
 // 新建音乐消息
@@ -150,10 +150,10 @@ func NewResMusic(to, from string, timestamp int64, thumbMediaId, musicURL,
 
 // 图文消息里的 Article
 type ResArticle struct {
-	Title       string `mapstructure:"Title,omitempty"       json:"Title,omitempty"`       // 图文消息标题
-	Description string `mapstructure:"Description,omitempty" json:"Description,omitempty"` // 图文消息描述
-	PicURL      string `mapstructure:"PicUrl,omitempty"      json:"PicUrl,omitempty"`      // 图片链接, 支持JPG, PNG格式, 较好的效果为大图360*200, 小图200*200
-	URL         string `mapstructure:"Url,omitempty"         json:"Url,omitempty"`         // 点击图文消息跳转链接
+	Title       string `mapstructure:"Title,omitempty"    xml:"Title,omitempty"    json:"Title,omitempty"`             // 图文消息标题
+	Description string `mapstructure:"Description,omitempty" xml:"Description,omitempty" json:"Description,omitempty"` // 图文消息描述
+	PicURL      string `mapstructure:"PicUrl,omitempty"    xml:"PicUrl,omitempty"   json:"PicUrl,omitempty"`           // 图片链接, 支持JPG, PNG格式, 较好的效果为大图360*200, 小图200*200
+	URL         string `mapstructure:"Url,omitempty"    xml:"Url,omitempty"      json:"Url,omitempty"`                 // 点击图文消息跳转链接
 }
 
 // 图文消息
@@ -161,8 +161,8 @@ type ResNews struct {
 	XMLName             xml.Name `xml:"xml" json:"-"`
 	CommonMessageHeader `mapstructure:",squash"`
 
-	ArticleCount int          `mapstructure:"ArticleCount"            json:"ArticleCount"`       // 图文消息个数, 限制为10条以内
-	Articles     []ResArticle `mapstructure:"Articles>item,omitempty" json:"Articles,omitempty"` // 多条图文消息信息, 默认第一个item为大图, 注意, 如果图文数超过10, 则将会无响应
+	ArticleCount int          `mapstructure:"ArticleCount"    xml:"ArticleCount"         json:"ArticleCount"`             // 图文消息个数, 限制为10条以内
+	Articles     []ResArticle `mapstructure:"Articles,omitempty" xml:"Articles>item,omitempty" json:"Articles,omitempty"` // 多条图文消息信息, 默认第一个item为大图, 注意, 如果图文数超过10, 则将会无响应
 }
 
 // NOTE: articles 的长度不能超过 NewsArticleCountLimit

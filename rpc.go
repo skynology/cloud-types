@@ -53,6 +53,9 @@ type CloudeResponse struct {
 	// 调用函数时返回的数据
 	Result interface{} `json:"result"`
 
+	// 额外字段, 如微信被动返回值, 直接编码友xml返回
+	ExtraData string `json:"extraData"`
+
 	// 需要隐藏字段
 	Hide []string `json:"hide"`
 
