@@ -29,7 +29,9 @@ type ReqSubscribeEvent struct {
 	XMLName struct{} `xml:"xml" json:"-"`
 	CommonMessageHeader
 
-	Event string `xml:"Event" json:"Event"` // 事件类型，subscribe(订阅)
+	Event    string `xml:"Event" json:"Event"`                             // 事件类型，subscribe(订阅)
+	EventKey string `xml:"EventKey,omitempty"" json:"EventKey,omitempty""` // 事件KEY值，由开发者在创建菜单时设定
+	Ticket   string `xml:"Ticket,omitempty"   json:"Ticket,omitempty"`     // 二维码的ticket，可用来换取二维码图片
 }
 
 func GetSubscribeEvent(data string) (*ReqSubscribeEvent, error) {
