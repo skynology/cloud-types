@@ -11,6 +11,9 @@ type CloudSession struct {
 
 	// 用户角色
 	Roles []string `json:"roles"`
+
+	// 用户状态
+	Disabled bool `json:"disabled"`
 }
 
 type CloudError struct {
