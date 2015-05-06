@@ -207,7 +207,7 @@ type TransferToCustomerService struct {
 	XMLName             xml.Name `xml:"xml" json:"-"`
 	CommonMessageHeader `mapstructure:",squash"`
 
-	*TransInfo `mapstructure:"TransInfo,omitempty" json:"TransInfo,omitempty"`
+	TransInfo `mapstructure:"TransInfo,omitempty" xml:"TransInfo,omitempty" json:"TransInfo,omitempty"`
 }
 
 // 如果不指定客服则 kfAccount 留空.
@@ -222,7 +222,7 @@ func NewTransferToCustomerService(to, from string, timestamp int64, kfAccount st
 	}
 
 	if kfAccount != "" {
-		msg.TransInfo = &TransInfo{
+		msg.TransInfo = TransInfo{
 			KfAccount: kfAccount,
 		}
 	}
