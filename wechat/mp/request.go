@@ -126,6 +126,70 @@ func GetLink(data string) (*ReqLink, error) {
 	return &result, err
 }
 
+// 原生支付通知
+type NativePay struct {
+	XMLName     struct{} `xml:"xml" json:"-"`
+	AppId       string   `xml:"appid"   json:"appid"`
+	MchId       string   `xml:"mch_id" json:"mch_id"`
+	IsSubscribe string   `xml:"is_subscribe" json:"is_subscribe"`
+	NonceStr    string   `xml:"nonce_str" json:"nonce_str"`
+	ProductId   string   `xml:"product_id" json:"product_id"`
+	Sign        string   `xml:"sign" json:"sign"`
+}
+
+func GetNativePay(data string) (*NativePay, error) {
+	var result NativePay
+	err := UnmarshalXML([]byte(data), &result)
+	return &result, err
+}
+
+// 支付后通知
+// 微信接口的变态... 谁特么在数据交互中返回动态字段? 返回个嵌套的array都是正常的吧
+// 所以暂时只支持了4个代金券或立减优惠批次ID, 普通场景应该够用了.....
+type PayNotify struct {
+	XMLName        struct{} `xml:"xml" json:"-"`
+	AppId          string   `xml:"appid"   json:"appid"`
+	MchId          string   `xml:"mch_id" json:"mch_id"`
+	DeviceInfo     string   `xml:"device_info" json:"device_info"`
+	NonceStr       string   `xml:"nonce_str" json:"nonce_str"`
+	Sign           string   `xml:"sign" json:"sign"`
+	ResultCode     string   `xml:"result_code" json:"result_code"`
+	ErrCode        string   `xml:"err_code,omitempty" json:"err_code,omitempty"`
+	ErrDescription string   `xml:"err_code_des,omitempty" json:"err_code_des,omitempty"`
+	OpenId         string   `xml:"openid" json:"openid"`
+	IsSubscribe    string   `xml:"is_subscribe" json:"is_subscribe"`
+	TradeType      string   `xml:"trade_type" json:"trade_type"`
+	BankType       string   `xml:"bank_type" json:"bank_type"`
+	TotalFee       int      `xml:"total_fee" json:"total_fee"`
+	FeeType        string   `xml:"fee_type,omitempty" json:"fee_type,omitempty"`
+	CashFee        string   `xml:"cash_fee" json:"cash_fee"`
+	CashFeeType    string   `xml:"cash_fee_type" json:"cash_fee_type"`
+	CouponFee      int      `xml:"coupon_fee" json:"coupon_fee"`
+	CouponCount    int      `xml:"coupon_count" json:"coupon_count"`
+	TransactionId  string   `xml:"transaction_id" json:"transaction_id"`
+	OutTradeNo     string   `xml:"out_trade_no" json:"out_trade_no"`
+	Attach         string   `xml:"attach,omitempty" json:"attach,omitempty"`
+	TimeEnd        string   `xml:"time_end" json:"time_end"`
+	CouponBachId1  string   `xml:"coupon_batch_id_1,omitempty" json:"coupon_batch_id_1,omitempty"`
+	CouponId1      string   `xml:"coupon_id_1,omitempty" json:"coupon_id_1,omitempty"`
+	CouponFee1     int      `xml:"coupon_fee_1,omitempty" json:"coupon_fee_1,omitempty"`
+	CouponBachId2  string   `xml:"coupon_batch_id_2,omitempty" json:"coupon_batch_id_2,omitempty"`
+	CouponId2      string   `xml:"coupon_id_2,omitempty" json:"coupon_id_2,omitempty"`
+	CouponFee2     int      `xml:"coupon_fee2" json:"coupon_fee2"`
+	CouponBachId3  string   `xml:"coupon_batch_id_3,omitempty" json:"coupon_batch_id_3,omitempty"`
+	CouponId3      string   `xml:"coupon_id_3,omitempty" json:"coupon_id_3,omitempty"`
+	CouponFee3     int      `xml:"coupon_fee_3,omitempty" json:"coupon_fee_3,omitempty"`
+	CouponBachId4  string   `xml:"coupon_batch_id_4,omitempty" json:"coupon_batch_id_4,omitempty"`
+	CouponId4      string   `xml:"coupon_id_4,omitempty" json:"coupon_id_4,omitempty"`
+	CouponFee4     int      `xml:"coupon_fee_4,omitempty" json:"coupon_fee_4,omitempty"`
+}
+
+func GetPayNotify(data string) (*PayNotify, error) {
+	var result PayNotify
+	err := UnmarshalXML([]byte(data), &result)
+	return &result, err
+}
+
 func UnmarshalXML(data []byte, v interface{}) error {
 	err := xml.Unmarshal(data, v)
 	return err

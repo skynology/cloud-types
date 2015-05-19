@@ -228,3 +228,44 @@ func NewTransferToCustomerService(to, from string, timestamp int64, kfAccount st
 	}
 	return
 }
+
+// 原生支付返回
+type ResNativePay struct {
+	XMLName        struct{} `xml:"xml" json:"-"`
+	MsgType        string   `mapstructure:"MsgType" xml:"-"   json:"MsgType"` // 云代码内用
+	ReturnCode     string   `mapstructure:"return_code" xml:"return_code" json:"return_code"`
+	ReturnMsg      string   `mapstructure:"return_msg,omitempty" xml:"return_msg,omitempty" json:"return_msg,omitempty"`
+	AppId          string   `mapstructure:"appid" xml:"appid"   json:"appid"`
+	MchId          string   `mapstructure:"mch_id" xml:"mch_id" json:"mch_id"`
+	PrepayId       string   `mapstructure:"prepay_id" xml:"prepay_id" json:"prepay_id"`
+	NonceStr       string   `mapstructure:"nonce_str" xml:"nonce_str" json:"nonce_str"`
+	Sign           string   `mapstructure:"sign" xml:"sign" json:"sign"`
+	ResultCode     string   `mapstructure:"result_code" xml:"result_code" json:"result_code"`
+	ErrDescription string   `mapstructure:"err_code_des,omitempty" xml:"err_code_des,omitempty" json:"err_code_des,omitempty"`
+}
+
+// 创建原生支付返回XML结构
+// appid, mchid, nonceStr, sign 无需输入, 系统在返回前会自动设置
+func NewResNativePay(prepayId, returnCode, returnMsg, resultCode, errDesc string) *ResNativePay {
+	return &ResNativePay{
+		MsgType:        "nativepay",
+		PrepayId:       prepayId,
+		ReturnCode:     returnCode,
+		ReturnMsg:      returnMsg,
+		ResultCode:     resultCode,
+		ErrDescription: errDesc,
+	}
+
+}
+
+// 支付通知返回内容
+type ResPayNotify struct {
+	XMLName    struct{} `xml:"xml" json:"-"`
+	MsgType    string   `mapstructure:"MsgType" xml:"-"   json:"MsgType"` // 云代码内用
+	ReturnCode string   `mapstructure:"return_code" xml:"return_code" json:"return_code"`
+	ReturnMsg  string   `mapstructure:"return_msg" xml:"return_msg,omitempty" json:"return_msg,omitempty"`
+}
+
+func NewResPayNotify(code string, msg string) *ResPayNotify {
+	return &ResPayNotify{MsgType: "paynotify", ReturnCode: code, ReturnMsg: msg}
+}
