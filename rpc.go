@@ -1,3 +1,4 @@
+// API服务器同云代码服务器交互协议
 package types
 
 // 云代码Session
@@ -42,6 +43,9 @@ type CloudRequest struct {
 
 	// 用户操作时的Session对象
 	Session CloudSession `json:"session"`
+
+	// 更新/删除前的对象
+	Previous map[string]interface{} `json:"previous"`
 }
 
 // 云代码条用后返回结构
